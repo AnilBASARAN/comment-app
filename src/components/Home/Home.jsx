@@ -1,6 +1,7 @@
 
 import Post from "../Post/Post";
 import React,{useState,useEffect} from "react";
+import PostForm from "../Post/PostForm";
 import './Home.css';
 
 
@@ -37,6 +38,7 @@ function Home(){
 
     
             <div className="container-main">
+                <PostForm userId= {1} userName={"ddd"} title={"title"} text={"text"} ></PostForm>
               {postList.map(post=>(
                <Post userName = {post.userName} userId = {post.userId} title={post.title} text={post.text}/>
             ))}

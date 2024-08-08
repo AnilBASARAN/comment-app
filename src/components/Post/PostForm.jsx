@@ -16,6 +16,9 @@ import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CommentIcon from '@mui/icons-material/Comment';
+import { InputAdornment, OutlinedInput } from '@mui/material';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
 import { useState } from 'react';
 import './Post.css';
@@ -24,7 +27,7 @@ import './Post.css';
 
 
 
-function Post(props) {
+function PostForm(props) {
   const {title,text,userId,userName} = props;
   const [expanded, setExpanded] = React.useState(false);
   const [liked,setLiked] = React.useState(false);
@@ -38,36 +41,58 @@ function Post(props) {
   }
 
   return (
-    <div className="postContainer" sx={{ width: 400, minWidth : 100 }}>
+    <div sx={{ width: 400 }} className="postContainer">
       <Card >
         <CardHeader
         
           avatar={
             <Link to={`/users/${userId}`} className="linked">
             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              {userName.split("")[0].toUpperCase()}
+             
             </Avatar>
             </Link>
           }
     
-          title={title}
+          title={<OutlinedInput
+            id='outlined-adornment-amount'
+            multiline
+            placeholder='Title'
+            inputProps={{maxLength: 25}}
+            fullWidth
+            
+          >
+
+          </OutlinedInput>}
           
         />
         
         <CardContent>
           <Typography variant="body2" color="text.secondary">
-            {text}
+          <OutlinedInput
+            id='outlined-adornment-amount'
+            multiline
+            placeholder='Text'
+            inputProps={{maxLength: 250}}
+            fullWidth
+            endAdornment ={
+                <InputAdornment position='end' >
+                <Button variant='contained'>Post</Button>
+                </InputAdornment>
+            }
+          >
+
+          </OutlinedInput>
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton
+         {/*  <IconButton
           onClick={handleLike}
           aria-label="add to favorites">
             <FavoriteIcon style={ liked? {color: "red "} : null} />
           </IconButton>
           <IconButton aria-label="share">
             
-          </IconButton>
+          </IconButton> */}
     
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -80,9 +105,5 @@ function Post(props) {
   );
 }
 
-Post.propTypes = {
-  title: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-};
 
-export default Post;
+export default PostForm;
