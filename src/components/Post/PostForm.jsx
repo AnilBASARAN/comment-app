@@ -28,17 +28,51 @@ import './Post.css';
 
 
 function PostForm(props) {
-  const {title,text,userId,userName} = props;
+  const {userId,userName,refreshPosts} = props;
   const [expanded, setExpanded] = React.useState(false);
   const [liked,setLiked] = React.useState(false);
+  const [text,setText] = useState("");
+  const [title,setTitle] = useState("");
+
+
+  const savePost = () => {
+    fetch("/posts",
+
+        {   method: "POST",
+            headers: {
+
+                "Content-Type": "application/json",
+
+            },
+            body: JSON.stringify({
+                title: title,
+                userId: userId,
+                text : text,
+            }),
+        })
+        .then((res)=>res.json())
+        .catch((err)=>console.log("error"))
+  }
+
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
 
-  const handleLike = ()=>{
-    setLiked(!liked);
+  const handleSubmit=()=>{
+    savePost();
+    refreshPosts();
   }
+
+  const handleTitle = (value) =>{
+    setTitle(value);
+  }
+
+  const handleText = (value) =>{
+    setText(value);
+  }
+
 
   return (
     <div sx={{ width: 400 }} className="postContainer">
@@ -59,7 +93,7 @@ function PostForm(props) {
             placeholder='Title'
             inputProps={{maxLength: 25}}
             fullWidth
-            
+            onChange={ (i)=> handleTitle(i.target.value) }
           >
 
           </OutlinedInput>}
@@ -74,9 +108,13 @@ function PostForm(props) {
             placeholder='Text'
             inputProps={{maxLength: 250}}
             fullWidth
+            onChange={ (i)=> handleText(i.target.value) }
             endAdornment ={
                 <InputAdornment position='end' >
-                <Button variant='contained'>Post</Button>
+                <Button 
+                variant='contained'
+                onClick={handleSubmit}
+                >Post</Button>
                 </InputAdornment>
             }
           >
@@ -85,15 +123,7 @@ function PostForm(props) {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-         {/*  <IconButton
-          onClick={handleLike}
-          aria-label="add to favorites">
-            <FavoriteIcon style={ liked? {color: "red "} : null} />
-          </IconButton>
-          <IconButton aria-label="share">
-            
-          </IconButton> */}
-    
+         
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>

@@ -12,22 +12,24 @@ function Home(){
     const [isLoaded, setIsLoaded] = useState(false);
     const [postList, setPostList] = useState([]);
   
-
+const refreshPosts = () =>{
+    fetch("/posts")
+    .then(res=>res.json())
+    .then(
+        (result)=>{
+            setIsLoaded(true);
+            setPostList(result)
+        },
+        (error)=>{
+            setIsLoaded(true);
+            setError(error);
+        }
+    )
+}
 
     useEffect(()=>{
-        fetch("/posts")
-        .then(res=>res.json())
-        .then(
-            (result)=>{
-                setIsLoaded(true);
-                setPostList(result)
-            },
-            (error)=>{
-                setIsLoaded(true);
-                setError(error);
-            }
-        )
-    },[])
+     refreshPosts()
+    },[postList])
 
     if(error){
         return <div>Error !!!</div>
@@ -38,9 +40,9 @@ function Home(){
 
     
             <div className="container-main">
-                <PostForm userId= {1} userName={"ddd"} title={"title"} text={"text"} ></PostForm>
+                <PostForm refreshPosts = {refreshPosts} userId= {1} userName= {"beybiboy"}></PostForm>
               {postList.map(post=>(
-               <Post userName = {post.userName} userId = {post.userId} title={post.title} text={post.text}/>
+               <Post  userName = {post.userName} userId = {post.userId} title={post.title} text={post.text}/>
             ))}
             </div>
          
