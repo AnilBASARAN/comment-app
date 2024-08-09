@@ -12,9 +12,12 @@ import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CommentIcon from '@mui/icons-material/Comment';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { InputAdornment, OutlinedInput, Snackbar, Alert, Button } from '@mui/material';
 import { Link } from "react-router-dom";
-import { useState, useRef, useEffect } from 'react';
-import { styled } from '@mui/material/styles'; // Import styled here
+import CommentForm from '../Comment/CommentForm';
+import { useState, useEffect } from 'react';
+import { styled } from '@mui/material/styles';
+import Comment from '../Comment/Comment';
 import './Post.css';
 
 // Custom-styled IconButton with rotation
@@ -35,7 +38,6 @@ function Post(props) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
     refreshComments();
-    
   };
 
   const handleLike = () => {
@@ -65,7 +67,7 @@ function Post(props) {
       <Card>
         <CardHeader
           avatar={
-            <Link to={`/users/${userId}`} className="linked">
+            <Link to={`/users/`+userId} className="linked">
               <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
                 {userName.split("")[0].toUpperCase()}
               </Avatar>
@@ -99,26 +101,56 @@ function Post(props) {
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             {isLoaded ? (
+
+
+
+
               <div>
                 <Typography variant="h6">Comments:</Typography>
-                {commentList.map(comment => (
+                  {commentList.map(comment => (
                   <div key={comment.id}>
-                    <Typography variant="body2" color="text.secondary">
-                      {comment.text}
-                    </Typography>
+                  
+                   <Typography variant="body2" color="text.secondary">
+                     
+                      </Typography>
+                      
+                      <Comment userName = {"XANAX"} text = {comment.text}  ></Comment>
                   </div>
                 ))}
+
+
+                <OutlinedInput
+id='outlined-adornment-amount'
+multiline
+placeholder='Text'
+inputProps={{ maxLength: 250 }}
+fullWidth
+
+
+endAdornment={
+    <InputAdornment position='end'>
+        <Button
+            variant='contained'
+            
+        >
+            Post
+        </Button>
+    </InputAdornment>
+}
+/> 
+            
               </div>
             ) : (
               <Typography variant="body2" color="text.secondary">
                 Loading comments...
               </Typography>
-            )}
-          </CardContent>
+            
+            )}</CardContent>
         </Collapse>
       </Card>
     </div>
   );
+
 }
 
 Post.propTypes = {

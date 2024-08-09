@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import Avatar from '@mui/material/Avatar';
@@ -9,7 +8,6 @@ import { red } from '@mui/material/colors';
 import { InputAdornment, OutlinedInput, Snackbar, Alert, Button } from '@mui/material';
 import { Link } from "react-router-dom";
 import CardContent from '@mui/material/CardContent';
-
 import './Post.css';
 import "./PostForm.css";
 
@@ -28,31 +26,30 @@ function PostForm(props) {
     };
 
     const savePost = async () => {
-      try {
-          const response = await fetch("/posts", {
-              method: "POST",
-              headers: {
-                  "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                  title: title,
-                  userId: userId,
-                  text: text,
-              }),
-          });
-          
-          if (!response.ok) {
-              throw new Error('Network response was not ok');
-          }
-  
-          const data = await response.json();
-          return data;
-      } catch (error) {
-          console.error("Error saving post:", error);
-          throw error; // Re-throw the error to be caught by the calling function
-      }
-  }
-  
+        try {
+            const response = await fetch("/posts", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    title: title,
+                    userId: userId,
+                    text: text,
+                }),
+            });
+            
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+    
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error("Error saving post:", error);
+            throw error; // Re-throw the error to be caught by the calling function
+        }
+    }
 
     const handleSubmit = () => {
         savePost()
@@ -92,7 +89,7 @@ function PostForm(props) {
                     avatar={
                         <Link to={`/users/${userId}`} className="linked">
                             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                                {/* Initials or image */}
+                                {userName.charAt(0).toUpperCase()}
                             </Avatar>
                         </Link>
                     }
