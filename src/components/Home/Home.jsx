@@ -47,6 +47,7 @@ function Home() {
                 <PostForm refreshPosts={refreshPosts} userId={1} userName={"beybiboy"} />
                 {postList.map(post => (
                     <Post 
+                        likes = {post.postLikes}
                         postId={post.id} 
                         key={post.id} 
                         userName={post.userName} 

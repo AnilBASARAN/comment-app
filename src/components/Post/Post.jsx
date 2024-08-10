@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -12,12 +12,10 @@ import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CommentIcon from '@mui/icons-material/Comment';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { InputAdornment, OutlinedInput, Snackbar, Alert, Button } from '@mui/material';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import CommentForm from '../Comment/CommentForm';
-import { useState, useEffect } from 'react';
-import { styled } from '@mui/material/styles';
 import Comment from '../Comment/Comment';
+import { styled } from '@mui/material/styles';
 import './Post.css';
 
 // Custom-styled IconButton with rotation
@@ -29,11 +27,14 @@ const ExpandIconButton = styled(IconButton)(({ theme, expanded }) => ({
 }));
 
 function Post(props) {
-  const { postId, title, text, userId, userName } = props;
+  const { postId, title, text, userId, userName, likes } = props;
   const [expanded, setExpanded] = useState(false);
   const [liked, setLiked] = useState(false);
-  const [commentList, setCommentList] = useState([]);
+  const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [commentList, setCommentList] = useState([]);
+  const isInitialMount = useRef(true);
+  const likeCount = likes.length;
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -46,13 +47,13 @@ function Post(props) {
 
   const refreshComments = () => {
     fetch(`/comments?postId=${postId}`)
-      .then(res => res.json())
-      .then(result => {
-        setCommentList(result);
+      .then((res) => res.json())
+      .then((result) => {
         setIsLoaded(true);
+        setCommentList(result);
       })
-      .catch(error => {
-        console.error("Error fetching comments:", error);
+      .catch((error) => {
+        console.error('Error fetching comments:', error);
       });
   };
 
@@ -67,9 +68,9 @@ function Post(props) {
       <Card>
         <CardHeader
           avatar={
-            <Link to={`/users/`+userId} className="linked">
+            <Link to={`/users/${userId}`} className="linked">
               <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                {userName.split("")[0].toUpperCase()}
+                {userName.split('')[0].toUpperCase()}
               </Avatar>
             </Link>
           }
@@ -83,74 +84,63 @@ function Post(props) {
         </CardContent>
 
         <CardActions disableSpacing>
-          <IconButton onClick={handleLike} aria-label="add to favorites">
-            <FavoriteIcon style={liked ? { color: "red" } : null} />
-          </IconButton>
+          {/* Flex container with space between like button and comment icon */}
+          <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
 
-          <ExpandIconButton
-            expanded={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show comments"
-          >
-            <CommentIcon />
-            {expanded ? <ExpandMoreIcon /> : <ExpandMoreIcon />} {/* Toggle icon based on state */}
-          </ExpandIconButton>
+            {/* Like button and like count together */}
+            <div style={{ display: 'flex', alignItems: 'center' }}> 
+              <IconButton onClick={handleLike} aria-label="add to favorites">
+                <FavoriteIcon style={liked ? { color: 'red' } : null} />
+              </IconButton>
+              <Typography>{likeCount}</Typography>
+            </div>
+
+            {/* Comment button on the right side */}
+            <div>
+              <ExpandIconButton
+                expanded={expanded}
+                onClick={handleExpandClick}
+                aria-expanded={expanded}
+                aria-label="show comments"
+              >
+                <CommentIcon />
+                <ExpandMoreIcon />
+              </ExpandIconButton>
+            </div>
+            
+          </div>
         </CardActions>
 
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             {isLoaded ? (
-
-
-
-
               <div>
                 <Typography variant="h6">Comments:</Typography>
-                  {commentList.map(comment => (
+                {commentList.map((comment) => (
                   <div key={comment.id}>
-                  
-                   <Typography variant="body2" color="text.secondary">
-                     
-                      </Typography>
-                      
-                      <Comment userName = {"XANAX"} text = {comment.text}  ></Comment>
+                    <Typography variant="body2" color="text.secondary"></Typography>
+                    <Comment
+                      style={{ padding: '9px' }}
+                      userId={userId}
+                      postId={postId}
+                      userName={userName}
+                      text={comment.text}
+                    ></Comment>
                   </div>
                 ))}
 
-
-                <OutlinedInput
-id='outlined-adornment-amount'
-multiline
-placeholder='Text'
-inputProps={{ maxLength: 250 }}
-fullWidth
-
-
-endAdornment={
-    <InputAdornment position='end'>
-        <Button
-            variant='contained'
-            
-        >
-            Post
-        </Button>
-    </InputAdornment>
-}
-/> 
-            
+                <CommentForm refreshComments={refreshComments} userName={'XANAX'} userId={userId} postId={postId}></CommentForm>
               </div>
             ) : (
               <Typography variant="body2" color="text.secondary">
                 Loading comments...
               </Typography>
-            
-            )}</CardContent>
+            )}
+          </CardContent>
         </Collapse>
       </Card>
     </div>
   );
-
 }
 
 Post.propTypes = {

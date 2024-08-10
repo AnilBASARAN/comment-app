@@ -2,3 +2,7 @@
     width: 500px;
     
 }
+
+.css-avi4v3-MuiCardContent-root:last-child {
+    padding-bottom: 4px;
+}

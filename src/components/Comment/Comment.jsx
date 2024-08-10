@@ -9,6 +9,8 @@ const CommentContainer = styled(CardContent)({
   flexWrap: "wrap",
   justifyContent: "flex-start",
   alignItems: "center",
+  margin: "0px",
+  padding:"0px"
 });
 
 const SmallAvatar = styled(Avatar)(({ theme }) => ({
@@ -26,7 +28,8 @@ function Comment(props) {
   const { text, userId, userName } = props;
 
   return (
-    <CommentContainer>
+    <CommentContainer
+    style={{  marginRight: "15px" ,marginLeft: "15px" , padding:"5px"}}>
       <OutlinedInput
         disabled
         id='outlined-adornment-amount'
@@ -44,7 +47,7 @@ function Comment(props) {
             </StyledLink>
           </InputAdornment>
         }
-        style={{ color: "black", backgroundColor: "white" }}
+        style={{ color: "black", backgroundColor: "white", margin: "0" , padding:"8px"}}
       />
     </CommentContainer>
   );
