@@ -6,7 +6,19 @@ import Typography from '@mui/material/Typography';
 import { InputAdornment, OutlinedInput, Snackbar, Alert, Button } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import CardContent from '@mui/material/CardContent';
+import { styled } from '@mui/material/styles';
+
 import './Login.css';
+
+const ContainerMain = styled('div')({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '100vh',
+    width: '100%', // Set to full width
+    
+});
 
 function Login(props) {
     const { refreshPosts } = props;
@@ -82,7 +94,7 @@ function Login(props) {
     };
 
     return (
-        <>
+        <ContainerMain>
             <div id='formContainer' className="postContainer">
                 <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
                     <Alert onClose={handleClose} severity="success" variant="filled" sx={{ width: '100%' }}>
@@ -146,7 +158,7 @@ function Login(props) {
                 ))}
             </div>
             
-        </>
+            </ContainerMain>
     );
 }
 

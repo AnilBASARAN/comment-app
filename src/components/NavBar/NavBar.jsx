@@ -6,43 +6,42 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from "react-router-dom";
+import { useState } from "react";
+
 import './NavBar.css';
 
-function Navbar() {
-  let userId = 2;
+function Navbar(props) {
+  const { userName } = props;
 
   return (
-    <div>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-             Welcome to Comments & Posts Aplication
-            </Typography>
-            <nav>
-              <ul className="nav-links">
-                <li className='link-item'>
-                  <Link to="/" className="link">Home</Link>
-                </li>
-               
-                <li className='link-item'>
-                  <Link to={`/login`} className="link">Login</Link>
-                </li>
-              </ul>
-            </nav>
-          </Toolbar>
-        </AppBar>
-      </Box>
-    </div>
+    <Box sx={{ flexGrow: 1, width: '100%' }}>  {/* Ensures Navbar takes full width */}
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          {userName ? `Welcome ${userName}` : "Welcome to Comments & Posts Application"} 
+          </Typography>
+          <nav>
+            <ul className="nav-links">
+              <li className='link-item'>
+                {!userName ? <Link to="/" className="link">Home</Link> : null}
+              </li>
+              <li className='link-item'>
+                {!userName ? <Link to={`/login`} className="link">Log in</Link> : <Link to={`/`} className="link">Log out</Link>}
+              </li>
+            </ul>
+          </nav>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 }
 

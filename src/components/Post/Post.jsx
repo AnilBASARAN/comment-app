@@ -83,12 +83,13 @@ function Post(props) {
               </Avatar>
             </Link>
           }
-          title={title}
+          
+          title={`Title : ${title}`}
         />
-
+ 
         <CardContent>
           <Typography variant="body2" color="text.secondary">
-            {text}
+          {userName} : {text}
           </Typography>
         </CardContent>
 
@@ -130,6 +131,7 @@ function Post(props) {
                 {commentList.map((comment) => (
                   <div key={comment.id}>
                     <Typography variant="body2" color="text.secondary"></Typography>
+                    
                     <Comment
                       style={{ padding: '9px' }}
                       userId={userId}

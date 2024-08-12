@@ -1,7 +1,17 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .App {
   text-align: left;
   text-wrap: wrap;
+  margin: 0;
+  padding: 0;
 }
+
+
 
 .App-logo {
   height: 40vmin;

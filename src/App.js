@@ -11,7 +11,7 @@ function App() {
     <div className="App">
 
       <BrowserRouter>
-      <Navbar></Navbar>
+      {/* <Navbar></Navbar> */}
       <Routes>
         <Route  path ="/" element={<Home/>}>  </Route>
         <Route  path="/users/:userId" element={<User/>}>  </Route>
