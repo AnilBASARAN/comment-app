@@ -1,0 +1,13 @@
+.postContainer{
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+    margin: 10px;
+    width: 800px;
+}
+
+.linked{
+    text-decoration: none;
+    color: wheat;
+}
+
