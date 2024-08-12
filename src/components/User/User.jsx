@@ -4,7 +4,8 @@ function User(){
     const {userId} = useParams();
     return(
         <div>
-            user!! {userId}
+            
+            USERNAME:  {userId}
         </div>
     )
 }

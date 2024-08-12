@@ -36,6 +36,9 @@ function Navbar() {
                 <li className='link-item'>
                   <Link to={`/users/${userId}`} className="link">User</Link>
                 </li>
+                <li className='link-item'>
+                  <Link to={`/login`} className="link">LoginMe</Link>
+                </li>
               </ul>
             </nav>
           </Toolbar>

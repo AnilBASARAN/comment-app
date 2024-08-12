@@ -29,12 +29,12 @@ const ExpandIconButton = styled(IconButton)(({ theme, expanded }) => ({
 function Post(props) {
   const { postId, title, text, userId, userName, likes } = props;
   const [expanded, setExpanded] = useState(false);
-  const [liked, setLiked] = useState(false);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [commentList, setCommentList] = useState([]);
   const isInitialMount = useRef(true);
-  const likeCount = likes.length;
+  const [isLiked,setIsLiked] = useState(false);
+  const [likeCount,setLikeCount] = useState(likes.length);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -42,7 +42,9 @@ function Post(props) {
   };
 
   const handleLike = () => {
-    setLiked(!liked);
+    setIsLiked(!isLiked);
+    if(isLiked) setLikeCount(likeCount-1);
+    else setLikeCount(likeCount+1)
   };
 
   const refreshComments = () => {
@@ -56,6 +58,13 @@ function Post(props) {
         console.error('Error fetching comments:', error);
       });
   };
+
+  useEffect(()=>{checkLikes()},[])
+
+  const checkLikes = ()=>{
+    var likeControl = likes.find((like =>like.userId == userId));
+    if(likeControl != null) setIsLiked(true);
+  }
 
   useEffect(() => {
     if (expanded) {
@@ -89,8 +98,10 @@ function Post(props) {
 
             {/* Like button and like count together */}
             <div style={{ display: 'flex', alignItems: 'center' }}> 
-              <IconButton onClick={handleLike} aria-label="add to favorites">
-                <FavoriteIcon style={liked ? { color: 'red' } : null} />
+              <IconButton
+               onClick={handleLike}
+               aria-label="add to favorites">
+                <FavoriteIcon style={isLiked ? { color: 'red' } : null} />
               </IconButton>
               <Typography>{likeCount}</Typography>
             </div>

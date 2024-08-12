@@ -2,6 +2,7 @@ import Post from "../Post/Post";
 import React, { useState, useEffect } from "react";
 import PostForm from "../Post/PostForm";
 import { styled } from '@mui/material/styles';
+import Login from "../Login/Login";
 import './Home.css';
 
 // Styled components
@@ -44,6 +45,7 @@ function Home() {
     } else {
         return (
             <ContainerMain>
+                
                 <PostForm refreshPosts={refreshPosts} userId={1} userName={"beybiboy"} />
                 {postList.map(post => (
                     <Post 
