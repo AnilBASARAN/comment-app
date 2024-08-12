@@ -26,18 +26,16 @@ function Navbar() {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Comments & Posts
+             Welcome to Comments & Posts Aplication
             </Typography>
             <nav>
               <ul className="nav-links">
                 <li className='link-item'>
                   <Link to="/" className="link">Home</Link>
                 </li>
+               
                 <li className='link-item'>
-                  <Link to={`/users/${userId}`} className="link">User</Link>
-                </li>
-                <li className='link-item'>
-                  <Link to={`/login`} className="link">LoginMe</Link>
+                  <Link to={`/login`} className="link">Login</Link>
                 </li>
               </ul>
             </nav>
