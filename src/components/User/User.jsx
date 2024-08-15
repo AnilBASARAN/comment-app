@@ -21,21 +21,13 @@ function User() {
     const [postList, setPostList] = useState([]);
     const { userId } = useParams();
     const [myName, setMyName] = useState(null);
+    
 
     const getMyUser = useCallback(async () => {
         try {
-            const result = await fetch("/users");
+            const result = await fetch("/users/"+userId);
             const data = await result.json();
-
-            let foundName = "";
-            for (let i = 0; i < data.length; i++) {
-                if (data[i].id == userId) {
-                    foundName = data[i].userName;
-                    break;
-                }
-            }
-
-            setMyName(foundName);
+            setMyName(data.userName);
         } catch (error) {
             setError(error);
         }

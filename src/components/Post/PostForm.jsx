@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { useState } from 'react';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import Avatar from '@mui/material/Avatar';
+import { CardHeader, Avatar, OutlinedInput, Select, MenuItem } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
-import { InputAdornment, OutlinedInput, Snackbar, Alert, Button } from '@mui/material';
+import { InputAdornment, Card, Snackbar, Alert, Button } from '@mui/material';
 import { Link } from "react-router-dom";
 import CardContent from '@mui/material/CardContent';
 import './Post.css';
 import "./PostForm.css";
+
+const titleOptions = ["CSS", "HTML", "REACT", "JAVASCRIPT"];
 
 function PostForm(props) {
     const { userId, userName, refreshPosts } = props;
@@ -66,8 +66,8 @@ function PostForm(props) {
             .finally(() => setOpen(true)); // Show snackbar after attempting to submit
     }
 
-    const handleTitle = (value) => {
-        setTitle(value);
+    const handleTitle = (event) => {
+        setTitle(event.target.value);
         setIsSent(false);
     }
 
@@ -94,16 +94,26 @@ function PostForm(props) {
                         </Link>
                     }
                     title={
-                        <OutlinedInput
-                            id='outlined-adornment-amount'
-                            multiline
-                            placeholder='Title'
-                            inputProps={{ maxLength: 25 }}
+                        <>
+                          {/* Select Dropdown */}
+                          <Select
+                            id="select-dropdown"
+                            value={title}  // Bind the select value to the title
+                            onChange={handleTitle}  // Handle the change event directly with handleTitle
+                            displayEmpty
                             fullWidth
-                            value={title}
-                            onChange={(i) => handleTitle(i.target.value)}
-                        />
-                    }
+                          >
+                            <MenuItem value="" disabled>
+                              Select a subject
+                            </MenuItem>
+                            {titleOptions.map((option, index) => (
+                              <MenuItem key={index} value={option}>
+                                {option}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </>
+                      }
                 />
 
                 <CardContent>
