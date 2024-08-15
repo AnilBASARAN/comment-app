@@ -4,6 +4,7 @@ import PostForm from "../Post/PostForm";
 import Navbar from "../NavBar/NavBar";
 import { styled } from '@mui/material/styles';
 import './Home.css';
+import FilterSection from "../FilterSection";
 
 const ContainerMain = styled('div')({
     display: 'flex',
@@ -19,6 +20,8 @@ function Home() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [postList, setPostList] = useState([]);
+    const [filterSelection,setFilterSelection] = useState("ALL");
+    const userId = null;
 
     const refreshPosts = () => {
         fetch("/posts")
@@ -47,6 +50,9 @@ function Home() {
             <ContainerMain>
                 <Navbar userName={null}></Navbar>
                 {/* PostForm and Post components can also be inside the full-width ContainerMain */}
+
+                <FilterSection userId={userId}/>
+
                 {postList.map(post => (
                     <Post 
                         likes={post.postLikes}

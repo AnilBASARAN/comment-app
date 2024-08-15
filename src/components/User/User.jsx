@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Post from "../Post/Post";
 import PostForm from "../Post/PostForm";
 import Navbar from '../NavBar/NavBar';
+import FilterSection from "../FilterSection";
 import { styled } from '@mui/material/styles';
 
 const ContainerMain = styled('div')({
@@ -59,12 +60,13 @@ function User() {
     } else {
         return (
             <>
-                <Navbar userName={myName}></Navbar>
+                <Navbar userId={userId} userName={myName}></Navbar>
                 <ContainerMain>
                     <div className='avatarmme'>
                       
                        {myName ? null : "Loading..."}
                     </div>
+                    <FilterSection userId={userId}/>
                     <PostForm refreshPosts={refreshPosts} userId={userId} userName={myName} />
                     {postList.filter(post => post.userId == userId).map(post => (
                         <Post 

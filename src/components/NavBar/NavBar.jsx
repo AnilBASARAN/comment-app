@@ -11,7 +11,7 @@ import { useState } from "react";
 import './NavBar.css';
 
 function Navbar(props) {
-  const { userName } = props;
+  const { userName,userId } = props;
 
   return (
     <Box sx={{ flexGrow: 1, width: '100%' }}>  {/* Ensures Navbar takes full width */}
@@ -31,11 +31,17 @@ function Navbar(props) {
           </Typography>
           <nav>
             <ul className="nav-links">
+            <li className='link-item'>
+               
+              </li>
               <li className='link-item'>
                 {!userName ? <Link to="/" className="link">Home</Link> : null}
               </li>
               <li className='link-item'>
-                {!userName ? <Link to={`/login`} className="link">Log in</Link> : <Link to={`/`} className="link">Log out</Link>}
+                {!userName ? <Link to={`/login`} className="link">Log in</Link> :(<>
+                  <Link to={`/users/${userId}/userInfo`} className="link">User Info</Link> <Link to={`/`} className="link">Log out</Link>
+                  </>
+                  )}
               </li>
             </ul>
           </nav>
