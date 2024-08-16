@@ -5,6 +5,9 @@ import Navbar from './components/NavBar/NavBar';
 import Home from './components/Home/Home';
 import User from './components/User/User';
 import Login from './components/Login/Login';
+import UserInfo from './components/UserInfo';
+import CreateUser from './components/CreateUser';
+
 
 function App() {
   return (
@@ -16,6 +19,8 @@ function App() {
         <Route  path ="/" element={<Home/>}>  </Route>
         <Route  path="/users/:userId" element={<User/>}>  </Route>
         <Route  path="/login" element={<Login/>}>  </Route>
+        <Route  path="/users/:userId/userInfo" element={<UserInfo/>}>  </Route>
+        <Route  path="/createuser" element={<CreateUser/>}>  </Route>
       </Routes>
       </BrowserRouter>
       
