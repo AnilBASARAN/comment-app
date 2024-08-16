@@ -7,6 +7,7 @@ import { InputAdornment, OutlinedInput, Snackbar, Alert, Button } from '@mui/mat
 import { useNavigate } from "react-router-dom";
 import CardContent from '@mui/material/CardContent';
 import { styled } from '@mui/material/styles';
+import { Link } from "react-router-dom";
 
 import './Login.css';
 
@@ -17,11 +18,20 @@ const ContainerMain = styled('div')({
     justifyContent: 'center',
     minHeight: '100vh',
     width: '100%', // Set to full width
+});
+
+const ContainerText = styled('div')({
+    display: 'flex',
+    flexDirection: 'row', // Ensure text and link stay in a row
+    alignItems: 'center', // Vertically align items in the center
     
+    justifyContent: 'flex-end', // Align items to the right
+    padding: "5px",
+    marginTop: "10px",
+    width: '100%', // Set to full width
 });
 
 function Login(props) {
-    const { refreshPosts } = props;
     const [password, setPassword] = useState("");
     const [userName, setUserName] = useState("");
     const [open, setOpen] = useState(false);
@@ -146,19 +156,18 @@ function Login(props) {
                                 }
                             />
                         </Typography>
+                        <ContainerText>You don't have an account? Click <Link to="/createuser" className="link">Here</Link></ContainerText>
                     </CardContent>
                 </Card>
             </div>
             <div id='fullUserList'>
                 {userList.map(user => (
                     <div key={user.id}>
-                           Username: {user.userName}        --           Password:  {user.password}   -- UserID: {user.id}
-                        
+                        Username: {user.userName} -- Password: {user.password} -- UserID: {user.id}
                     </div>
                 ))}
             </div>
-            
-            </ContainerMain>
+        </ContainerMain>
     );
 }
 

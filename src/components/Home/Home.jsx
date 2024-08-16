@@ -16,11 +16,22 @@ const ContainerMain = styled('div')({
     
 });
 
+const ContainerText = styled('div')({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: "5px",
+    marginTop: "10px",
+    width: '100%', // Set to full width
+    
+});
+
 function Home() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [postList, setPostList] = useState([]);
-    const [filterSelection,setFilterSelection] = useState("ALL");
+    const [filter,setFilter] = useState("ALL");
     const userId = null;
 
     const refreshPosts = () => {
@@ -48,12 +59,15 @@ function Home() {
     } else {
         return (
             <ContainerMain>
+               
                 <Navbar userName={null}></Navbar>
                 {/* PostForm and Post components can also be inside the full-width ContainerMain */}
+                <ContainerText>Select to filter:</ContainerText> 
 
-                <FilterSection userId={userId}/>
+                
+                <FilterSection setFilter={setFilter} userId={userId}/>
 
-                {postList.map(post => (
+               { filter === "ALL" ?  postList.map(post => (
                     <Post 
                         likes={post.postLikes}
                         postId={post.id}
@@ -63,7 +77,19 @@ function Home() {
                         title={post.title}
                         text={post.text}
                     />
-                ))}
+                )) : postList.filter(x => x.title === filter  ).map(post => (
+                    <Post 
+                        likes={post.postLikes}
+                        postId={post.id}
+                        key={post.id}
+                        userName={post.userName}
+                        userId={post.userId}
+                        title={post.title}
+                        text={post.text}
+                    />
+                ))} 
+
+                
             </ContainerMain>
         );
     }
