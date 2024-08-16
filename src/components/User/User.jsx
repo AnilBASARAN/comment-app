@@ -31,9 +31,9 @@ function User() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [postList, setPostList] = useState([]);
+    const [personalFilter, setPersonalFilter] = useState("ALL");
     const { userId: myUserId } = useParams();
     const [myName, setMyName] = useState(null);
-    const [personalFilter, setPersonalFilter] = useState("ALL");
 
     const getMyUser = useCallback(async () => {
         try {

@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import CardContent from '@mui/material/CardContent';
 import { styled } from '@mui/material/styles';
 import { Link } from "react-router-dom";
-
+import Navbar from '../NavBar/NavBar';
 import './Login.css';
 
 const ContainerMain = styled('div')({
@@ -104,7 +104,11 @@ function Login(props) {
     };
 
     return (
+        
+        <>
+        <Navbar createUser={true}></Navbar>
         <ContainerMain>
+            
             <div id='formContainer' className="postContainer">
                 <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
                     <Alert onClose={handleClose} severity="success" variant="filled" sx={{ width: '100%' }}>
@@ -168,6 +172,7 @@ function Login(props) {
                 ))}
             </div>
         </ContainerMain>
+        </>
     );
 }
 

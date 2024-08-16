@@ -32,8 +32,10 @@ const ContainerText = styled('div')({
 
 function CreateUser() {
     return (
+        <>
+        <Navbar createUser={true}></Navbar>
         <ContainerMain>
-            <Navbar createUser={true}></Navbar>
+           
             <div id='formContainer' className="postContainer">
 
 
@@ -143,6 +145,7 @@ function CreateUser() {
             </div>
     
         </ContainerMain>
+        </>
     );
 
 }

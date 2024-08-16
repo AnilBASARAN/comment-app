@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import CardContent from '@mui/material/CardContent';
 import { Link } from "react-router-dom";
 import Navbar from "./NavBar/NavBar";
+import  { useState, useCallback,useEffect } from "react";
+
     
     const ContainerMain = styled('div')({
         display: 'flex',
@@ -34,13 +36,30 @@ import Navbar from "./NavBar/NavBar";
     function CreateUser() {
 
       const { userId } = useParams();
+      const { userId: myUserId } = useParams();
+      const [myName, setMyName] = useState(null);
+     
+    const getMyUser = useCallback(async () => {
+        try {
+            const result = await fetch("/users/" + myUserId);
+            const data = await result.json();
+            setMyName(data.userName);
+        } catch (error) {
+            console.log(error);
+        }
+    }, [myUserId]);
+
+    useEffect(() => {
+        getMyUser();
+       
+    }, [getMyUser]);
 
       // user details / info you fetch ile çekerek alanları doldur, sonrasında update user info tuşuna update/ post fetch 
       // navbar a da hem username hem de user ıd yolla ki welcome {username } diyebilsin ve homedaki gibi login çıkmasın
 
         return (
             <ContainerMain>
-                <Navbar userId={userId}></Navbar>
+                <Navbar isUserInfo={true} userId={myUserId} userName={myName} />
                 <div id='formContainer' className="postContainer">
     
     
