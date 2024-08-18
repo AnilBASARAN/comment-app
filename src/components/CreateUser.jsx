@@ -1,13 +1,17 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
 import { InputAdornment, OutlinedInput, Snackbar, Alert, Button } from '@mui/material';
-import { useNavigate } from "react-router-dom";
+
 import CardContent from '@mui/material/CardContent';
-import { Link } from "react-router-dom";
+
 import Navbar from "./NavBar/NavBar";
+
+import Modal1 from "../Modal1";
+
+
 
 const ContainerMain = styled('div')({
     display: 'flex',
@@ -31,9 +35,14 @@ const ContainerText = styled('div')({
 });
 
 function CreateUser() {
+    // eslint-disable-next-line no-unused-vars
+    const [showModal,setShowModal] = useState(false);
+    
+  
     return (
         <>
         <Navbar createUser={true}></Navbar>
+      
         <ContainerMain>
            
             <div id='formContainer' className="postContainer">
@@ -131,20 +140,36 @@ function CreateUser() {
                                     <InputAdornment position='end'>
                                         <Button
                                             variant='contained'
-                                            
+                                            onClick={ () => setShowModal(true)}
                                         >
                                             Create New User
-                                        </Button>
+                                        </Button >
+                                        {
+                                            showModal ? (  <Modal1>
+                                                <h1>Bak Bozarsın Mozarsın. Emin misin ?</h1>
+                                                <div className="buttons">
+                                                    <Button>Tamam abi</Button>
+                                                    <Button onClick={() => setShowModal(false)}>Bi daha olmaz abi</Button>
+                
+                                                </div>
+                        </Modal1>):null
+                                        }
                                     </InputAdornment>
                                 }
                             />
                         </Typography>
                        
                     </CardContent>
+             
                 </Card>
+
             </div>
+        
+                           
+              
     
         </ContainerMain>
+  
         </>
     );
 

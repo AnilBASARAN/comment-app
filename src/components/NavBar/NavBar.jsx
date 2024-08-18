@@ -35,7 +35,7 @@ function Navbar(props) {
             
            </li>
            <li className='link-item'>
-             {!userName ? <Link to="/" className="link">Home</Link> : null}
+             {!userName ? <Link to="/" className="link">Guest Mode</Link> : null}
            </li>
        
          </ul>
@@ -64,7 +64,7 @@ function Navbar(props) {
            
           </li>
           <li className='link-item'>
-            {!userName ? <Link to="/" className="link">Home</Link> : null}
+            {!userName ? <Link to="/" className="link">Guest Mode</Link> : null}
           </li>
           <li className='link-item'>
             {!userName ? <Link to={`/login`} className="link">Log in</Link> :
