@@ -63,7 +63,7 @@ function User() {
         getMyUser();
         refreshPosts();
     }, [getMyUser]);
-/////////////////////////////////////////////////
+
 
 
     if (error) {

@@ -5,6 +5,7 @@ import Navbar from "../NavBar/NavBar";
 import { styled } from '@mui/material/styles';
 import './Home.css';
 import FilterSection from "../FilterSection";
+import { Button } from "@mui/material";
 
 const ContainerMain = styled('div')({
     display: 'flex',
@@ -27,7 +28,10 @@ const ContainerText = styled('div')({
     
 });
 
+const PAGE_SIZE = 6;
+
 function Home() {
+    const [pageIndex,setPageIndex] = useState(0);
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [postList, setPostList] = useState([]);
@@ -57,6 +61,14 @@ function Home() {
     } else if (!isLoaded) {
         return <div>Loading...</div>;
     } else {
+
+            const numPages = Math.ceil(postList.length / PAGE_SIZE);
+            const buttons = [];
+            for(let i = 0; i< numPages ; i++){
+                buttons.push(<Button onClick={()=> setPageIndex(i) } key= {i}>{i+1}</Button>)
+            }
+
+
         return (
             <ContainerMain>
                
@@ -66,11 +78,11 @@ function Home() {
 
                 
                 <FilterSection setFilter={setFilter} userId={userId}/>
-                <div className="flex justify-center py-10">
+                <div className="flex flex-col items-center py-10">
 
                     <div className="w-full  flex flex-wrap justify-center items-center" >
 
-                    { filter === "ALL" ?  postList.map(post => (
+                    { filter === "ALL" ?  postList.slice(PAGE_SIZE * pageIndex , PAGE_SIZE * (pageIndex + 1 )).map(post => (
                     <Post 
                         likes={post.postLikes}
                         postId={post.id}
@@ -93,7 +105,9 @@ function Home() {
                 ))} 
 
                     </div>
-
+                                <div className="buttons-container">
+                                    {buttons}
+                                </div>
 
                 </div>
               

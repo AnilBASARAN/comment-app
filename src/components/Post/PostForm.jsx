@@ -97,7 +97,8 @@ function PostForm(props) {
                         <>
                           {/* Select Dropdown */}
                           <Select
-                            id="select-dropdown"
+                            id="post-title-select"  // Unique ID for the select dropdown
+                            name="title"  // Added name attribute for form submission
                             value={title}  // Bind the select value to the title
                             onChange={handleTitle}  // Handle the change event directly with handleTitle
                             displayEmpty
@@ -119,7 +120,8 @@ function PostForm(props) {
                 <CardContent>
                     <Typography variant="body2" color="text.secondary">
                         <OutlinedInput
-                            id='outlined-adornment-amount'
+                            id='post-text-input'  // Unique ID for the text input
+                            name="text"  // Added name attribute for form submission
                             multiline
                             placeholder='Text'
                             inputProps={{ maxLength: 250 }}
