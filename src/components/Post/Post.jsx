@@ -74,7 +74,7 @@ function Post(props) {
 
   return (
     <div className="postContainer">
-      <Card>
+      <Card sx={{ border: 1, height:275 , width:400 , padding:1 }} >
         <CardHeader
           avatar={
             <Link to={`/users/${userId}`} className="linked">
