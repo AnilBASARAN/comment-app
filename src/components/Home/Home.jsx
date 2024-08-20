@@ -61,8 +61,14 @@ function Home() {
     } else if (!isLoaded) {
         return <div>Loading...</div>;
     } else {
+                let numPages;
+            if(filter === "ALL"){
+                 numPages = Math.ceil(postList.length / PAGE_SIZE);
+               } else{
+                 numPages = Math.ceil(postList.filter(x => x.title === filter  ).length / PAGE_SIZE);
+            }
 
-            const numPages = Math.ceil(postList.length / PAGE_SIZE);
+            
             const buttons = [];
             for(let i = 0; i< numPages ; i++){
                 buttons.push(<Button onClick={()=> setPageIndex(i) } key= {i}>{i+1}</Button>)
@@ -92,7 +98,7 @@ function Home() {
                         title={post.title}
                         text={post.text}
                     />
-                )) : postList.filter(x => x.title === filter  ).map(post => (
+                )) : postList.filter(x => x.title === filter  ).slice(PAGE_SIZE * pageIndex , PAGE_SIZE * (pageIndex + 1 )).map(post => (
                     <Post 
                         likes={post.postLikes}
                         postId={post.id}
