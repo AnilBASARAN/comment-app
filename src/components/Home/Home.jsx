@@ -66,8 +66,11 @@ function Home() {
 
                 
                 <FilterSection setFilter={setFilter} userId={userId}/>
+                <div className="flex justify-center py-10">
 
-               { filter === "ALL" ?  postList.map(post => (
+                    <div className="w-full  flex flex-wrap justify-center items-center" >
+
+                    { filter === "ALL" ?  postList.map(post => (
                     <Post 
                         likes={post.postLikes}
                         postId={post.id}
@@ -88,6 +91,12 @@ function Home() {
                         text={post.text}
                     />
                 ))} 
+
+                    </div>
+
+
+                </div>
+              
 
                 
             </ContainerMain>
