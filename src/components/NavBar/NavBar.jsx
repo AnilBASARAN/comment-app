@@ -67,6 +67,9 @@ function Navbar(props) {
             {!userName ? <Link to="/" className="link">Home</Link> : null}
           </li>
           <li className='link-item'>
+            {!userName ? <Link to="/pagination" className="link">Pagination</Link> : null}
+          </li>
+          <li className='link-item'>
             {!userName ? <Link to={`/login`} className="link">Log in</Link> :
             isUserInfo ? (<>
                <Link to={`/`} className="link">Log out</Link>

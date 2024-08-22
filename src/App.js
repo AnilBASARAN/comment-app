@@ -7,6 +7,7 @@ import Login from './components/Login/Login';
 import UserInfo from './components/UserInfo';
 import CreateUser from './components/CreateUser';
 import { Button } from '@mui/material';
+import Page from './components/Page';
 
 
 
@@ -32,6 +33,7 @@ function App() {
       <BrowserRouter>
       {/* <Navbar></Navbar> */}
       <Routes>
+      <Route  path ="/pagination" element={<Page/>}>  </Route>
         <Route  path ="/" element={<Home/>}>  </Route>
         <Route  path="/users/:userId" element={<User/>}>  </Route>
         <Route  path="/login" element={<Login/>}>  </Route>
