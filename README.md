@@ -68,3 +68,13 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+    ADDING TO DOs
+    - add pagination
+    - update your database with PostgreSQL not using Java Spring(join tables etc)
+    -add hand written querys not ORM in order to demonstrate SQL skills
+    -add delete functionality posts, likes, user info
+    - add update functionality to user information
+    -create a user information entity
+    -
